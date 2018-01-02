@@ -1,0 +1,37 @@
+{
+  "name": "upworld_lms",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "set \"NODE_ENV=test\" & supervisor ./bin/www",
+    "istart": "export \"NODE_ENV=test\" & supervisor ./bin/www",
+    "test": "mocha test --exit"
+  },
+  "dependencies": {
+    "auth0": "^2.9.1",
+    "auth0-js": "^8.12.1",
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "~4.15.5",
+    "express-jwt": "^5.3.0",
+    "express-jwt-authz": "^1.0.0",
+    "jwks-rsa": "^1.2.1",
+    "morgan": "~1.9.0",
+    "pg": "^6.4.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.28.6",
+    "sequelize-cli": "^3.2.0",
+    "serve-favicon": "~2.4.5",
+    "supervisor": "^0.12.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "jscs": "^3.0.7",
+    "jshint": "^2.9.5",
+    "mocha": "^4.1.0",
+    "mocha-jscs": "^5.0.1",
+    "mocha-jshint": "^2.3.1"
+  }
+}
