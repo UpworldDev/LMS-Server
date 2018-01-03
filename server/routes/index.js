@@ -44,7 +44,6 @@ router.get('/', (req, res, next) => res.status(200).send({
   message: 'Welcome to the API!'
 }));
 
-
 router.get('/persons', personsController.list);                                           // No Security on Restfull Endpoint
 router.post('/persons', personsController.create);
 router.get('/persons/:personId', personsController.retrieve);
