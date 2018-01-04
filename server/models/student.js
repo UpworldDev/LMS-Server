@@ -54,13 +54,6 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 
-	Student.associate = (models) => {
-		Student.hasMany(models.Assesment, {
-		  foreignKey: 'studentId',
-		  as: 'assessments',
-		});
-	  };	
-	  
 	Student.associate = models => {
 		Student.belongsTo(models.Person, {
 			foreignKey: {

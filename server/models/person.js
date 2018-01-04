@@ -48,11 +48,14 @@ module.exports = (sequelize, DataTypes) => {
 		// 	type: DataTypes.String,
 		// 	allowNull: false
 		// }
-	},
-	//	{
-	//		timestamps: true
-	//	}
-	);
+	});
+
+	Person.associate = (models) => {
+		Person.hasMany(models.Assessment, {
+			foreignKey: 'personId',
+			as: "assessments"
+		});
+	};
 	return Person;
 };
 

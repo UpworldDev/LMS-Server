@@ -50,6 +50,8 @@ router.get('/persons/:personId', personsController.retrieve);
 router.put('/persons/:personId', personsController.update);
 router.delete('/persons/:personId', personsController.destroy);
 
+router.get('/students/assessments', personsController.listStudentAssessments);
+
 router.post('/persons/:personId/assessments', assessmentsController.create);
 router.put('/persons/:personId/assessments/:assessmentId', assessmentsController.update);
 router.delete('/persons/:personId/assessments/:assessmentId', assessmentsController.destroy);
