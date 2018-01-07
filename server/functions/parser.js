@@ -4,19 +4,21 @@ module.exports = {
     parse
 };
 
-function parse(query, { rawAttributes }) {
+function parse(query, model ) {
     const options = {
         where: {}    
     };
     
     const keywords = [
         'fields',
+        'include',
         'limit',
         'offset',
         'sort'
     ];
     
     options.attributes = parseString(query.fields);
+    options.include = parseInclude(query.include, model);
     options.limit = parseInteger(query.limit);
     options.offset = parseInteger(query.offset);
     options.order = parseSort(query.sort);
@@ -24,7 +26,7 @@ function parse(query, { rawAttributes }) {
     _(query)
         .omit(keywords)
         .forOwn((value, key) => {
-            if (rawAttributes.hasOwnProperty(key)) {
+            if (model.rawAttributes.hasOwnProperty(key)) {
                 options.where[key] = parseJson(value);
             }
         });
@@ -76,4 +78,20 @@ function parseSort(value) {
     }
     
     return sort;
+}
+
+function parseInclude(value, model ) {
+    let include = undefined;
+    
+    if (value) {
+        const keys = parseString(value);
+
+        include = _.map(keys, (key) => {
+            if (model.associations.hasOwnProperty(key)) {
+                return { model: (model.sequelize.models[model.associations[key].target.name]) , as: key };
+            } 
+        });   
+    }
+
+    return include;
 }

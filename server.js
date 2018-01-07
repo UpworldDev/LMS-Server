@@ -4,9 +4,12 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const { ModelHandler } = require('sequelize-handlers');
 
 const routes = require('./server/routes/index');
 const users = require('./server/routes/users');
+
+const contactsHandler = new ModelHandler(require('./server/models').Contact);
 
 const app = express();
 
@@ -22,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'client')));
 
 app.use('/api/', routes);
 app.use('/', express.static(__dirname +  '/'));
+app.get('/persons/:personId/contacts', contactsHandler.query());
+app.post('/persons/:personId/contacts', contactsHandler.create());
 
 app.get('/callback', function(req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));

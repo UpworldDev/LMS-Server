@@ -2,6 +2,13 @@ module.exports = (sequelize, DataTypes) => {
 	var Contact = sequelize.define(
 		"Contact",
 		{
+			id: {
+				allowNull: false,
+				autoIncrement: true,
+				primaryKey: true,
+				type: DataTypes.INTEGER,
+			  },
+
 			contactType: {
 				type: DataTypes.INTEGER,
 				allowNull: false
@@ -17,14 +24,19 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			timestamps: true
+		},
+		{
+			personId: {
+				type: DataTypes.INTEGER
+			}
 		}
 	);
 
 	Contact.associate = models => {
 		Contact.belongsTo(models.Person, {
-			foreignKey: {
-				allowNull: false
-			}
+			foreignKey: 'personId',
+			onDelete: 'CASCADE',
+			allowNull: false
 		});
 	};
 

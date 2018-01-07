@@ -14,13 +14,20 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			timestamps: true
+		},
+		{
+			personId: {
+				type: DataTypes.INTEGER,
+				allowNull: false 
+			}
 		}
 	);
 
 	Assessment.associate = models => {
 		Assessment.belongsTo(models.Person, {
 			foreignKey: 'personId',
-			onDelete: 'CASCADE'
+			onDelete: 'CASCADE',
+			allowNull: false
 		});
 	};
 
