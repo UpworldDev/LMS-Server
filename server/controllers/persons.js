@@ -18,7 +18,7 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   list(req, res) {
-      options= parse(req.query, Person);
+    const options = parse(req.query, Person);
 
     return Person
       .findAll(options)
@@ -26,10 +26,11 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   listStudentAssessments(req, res) {
-    var q = {
-			userType: 'student',
-			...req.query
-		}
+    const options = req.query;
+    const q = {
+      userType: 'student',
+      options
+    };
     return Person
       .findAll({
         attributes: ['lastName'],
@@ -37,7 +38,8 @@ module.exports = {
         include: [{
           model: Assessment,
           as: 'assessments',
-        }],
+          attributes:['assessmentName']
+        }]
       })
       .then(persons => res.status(200).send(persons))
       .catch(error => res.status(400).send(error));
