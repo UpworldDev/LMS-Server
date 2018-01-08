@@ -56,10 +56,11 @@ module.exports = (sequelize, DataTypes) => {
 
 	Student.associate = models => {
 		Student.belongsTo(models.Person, {
-			foreignKey: {
-				allowNull: false
-			}
+			foreignKey: 'personId',
+			onDelete: 'CASCADE',
+			allowNull: false
 		});
 	};
+	
 	return Student;
 };

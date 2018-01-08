@@ -5,6 +5,7 @@ const path = require('path');
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
 const jwtAuthz = require('express-jwt-authz');
+const { ModelHandler } = require('sequelize-handlers');
 
 const checkJwt = jwt({
   // Dynamically provide a signing key
@@ -25,6 +26,7 @@ const checkJwt = jwt({
 
 const checkScopes = jwtAuthz(['read:messages']);
 
+
 router.get('/public', function(req, res) {
   res.json({
     message: 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'
@@ -40,6 +42,12 @@ router.get('/private', checkJwt, checkScopes, function(req, res) {
 const personsController = require('../controllers').persons;
 const assessmentsController = require('../controllers').assessments;
 
+const assessmentsHandler = new ModelHandler(require('../models').Assessment);
+const contactsHandler = new ModelHandler(require('../models').Contact);
+const pointsHandler = new ModelHandler(require('../models').Point);
+const pointHistoriesHandler = new ModelHandler(require('../models').PointHistory);
+const studentsHandler = new ModelHandler(require('../models').Student);
+
 router.get('/', (req, res, next) => res.status(200).send({
   message: 'Welcome to the API!'
 }));
@@ -52,9 +60,17 @@ router.delete('/persons/:personId', personsController.destroy);
 
 router.get('/students/assessments', personsController.listStudentAssessments);
 
-router.post('/persons/:personId/assessments', assessmentsController.create);
-router.put('/persons/:personId/assessments/:assessmentId', assessmentsController.update);
+router.post('/persons/:personId/assessments', assessmentsHandler.create());                // Uses new dynamic Model 
+router.put('/persons/:personId/assessments/:assessmentId', assessmentsController.update); // Uses hard code model
 router.delete('/persons/:personId/assessments/:assessmentId', assessmentsController.destroy);
+
+
+router.post('/persons/:personId/contacts', contactsHandler.create());
+router.get('/persons/:personId/contacts/:id', contactsHandler.get());
+router.get('/persons/:personId/contacts', contactsHandler.query());
+router.delete('/persons/:personId/contacts/:id', contactsHandler.remove());
+router.put('/persons/:personId/contacts/:id', contactsHandler.update());
+
 /*
 router.get('/persons', checkJwt, checkScopes, personsController.list);                      // Secured Restfull Endpoint
 router.post('/persons', checkJwt, checkScopes, personsController.create);

@@ -14,12 +14,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			timestamps: true
-		},
-		{
-			personId: {
-				type: DataTypes.INTEGER,
-				allowNull: false 
-			}
 		}
 	);
 

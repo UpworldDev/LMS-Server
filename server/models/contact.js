@@ -2,15 +2,8 @@ module.exports = (sequelize, DataTypes) => {
 	var Contact = sequelize.define(
 		"Contact",
 		{
-			id: {
-				allowNull: false,
-				autoIncrement: true,
-				primaryKey: true,
-				type: DataTypes.INTEGER,
-			  },
-
 			contactType: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.STRING,
 				allowNull: false
 			},
 
@@ -24,11 +17,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			timestamps: true
-		},
-		{
-			personId: {
-				type: DataTypes.INTEGER
-			}
 		}
 	);
 

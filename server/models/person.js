@@ -59,10 +59,19 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'personId',
 			as: "contacts"
 		});
+		Person.hasOne(models.Point, {
+			foreignKey: 'personId',
+			as: "points"
+		});
+		Person.hasMany(models.PointHistory, {
+			foreignKey: 'personId',
+			as: "pointHistories"
+		});
+		Person.hasOne(models.Student, {
+			foreignKey: 'personId',
+			as: "Students"
+		});
 	};
 
 	return Person;
 };
-
-// remember to make association with children tables
-// Contact

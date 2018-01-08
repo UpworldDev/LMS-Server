@@ -26,15 +26,16 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   listStudentAssessments(req, res) {
-    const options = req.query;
+    /* jshint ignore:start */
     const q = {
       userType: 'student',
-      options
-    };
+      ...req.query          
+    }; 
+    /* jshint ignore:end */
     return Person
       .findAll({
         attributes: ['lastName'],
-        where: q,
+        where: q,  // jshint ignore:line
         include: [{
           model: Assessment,
           as: 'assessments',
