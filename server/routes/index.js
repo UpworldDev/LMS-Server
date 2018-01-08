@@ -40,6 +40,7 @@ router.get('/private', checkJwt, checkScopes, function(req, res) {
 
 const personsController = require('../controllers').persons;
 const assessmentsController = require('../controllers').assessments;
+const attendancesController = require('../controllers').attendances;
 
 const assessmentsHandler = new ModelHandler(require('../models').Assessment);
 const contactsHandler = new ModelHandler(require('../models').Contact);
@@ -75,6 +76,8 @@ router.get('/persons/:personId/attendances/:id', attendancesHandler.get());
 router.get('/persons/:personId/attendances', attendancesHandler.query());
 router.delete('/persons/:personId/attendances/:id', attendancesHandler.remove());
 router.put('/persons/:personId/attendances/:id', attendancesHandler.update());
+
+router.post('/persons/:personId/bulkAttendances', attendancesController.create);
 
 /*
 router.get('/persons', checkJwt, checkScopes, personsController.list);                      // Secured Restfull Endpoint

@@ -11,10 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.STRING,  // present, absent or tardy - or just bool for present absent
 				allowNull: false
 			},
-			excused: {
-				type: DataTypes.STRING,  // excused, unexcused or just bool for excused,Unexcused
-				allowNull: false
-			},
 			teacherId: {
 				type: DataTypes.INTEGER,  // id of the teacher
 				allowNull: false
