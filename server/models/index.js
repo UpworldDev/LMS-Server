@@ -15,7 +15,7 @@ if (config.use_env_variable) {
   );
 }
 
-sequelize.sync(); 
+// sequelize.sync(); // uncomment for creating all missing tables in Database overuse with MOCHA
 
 fs
   .readdirSync(__dirname)

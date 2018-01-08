@@ -26,7 +26,6 @@ const checkJwt = jwt({
 
 const checkScopes = jwtAuthz(['read:messages']);
 
-
 router.get('/public', function(req, res) {
   res.json({
     message: 'Hello from a public endpoint! You don\'t need to be authenticated to see this.'
@@ -47,6 +46,7 @@ const contactsHandler = new ModelHandler(require('../models').Contact);
 const pointsHandler = new ModelHandler(require('../models').Point);
 const pointHistoriesHandler = new ModelHandler(require('../models').PointHistory);
 const studentsHandler = new ModelHandler(require('../models').Student);
+const attendancesHandler = new ModelHandler(require('../models').Attendance);
 
 router.get('/', (req, res, next) => res.status(200).send({
   message: 'Welcome to the API!'
@@ -64,12 +64,17 @@ router.post('/persons/:personId/assessments', assessmentsHandler.create());     
 router.put('/persons/:personId/assessments/:assessmentId', assessmentsController.update); // Uses hard code model
 router.delete('/persons/:personId/assessments/:assessmentId', assessmentsController.destroy);
 
-
 router.post('/persons/:personId/contacts', contactsHandler.create());
 router.get('/persons/:personId/contacts/:id', contactsHandler.get());
 router.get('/persons/:personId/contacts', contactsHandler.query());
 router.delete('/persons/:personId/contacts/:id', contactsHandler.remove());
 router.put('/persons/:personId/contacts/:id', contactsHandler.update());
+
+router.post('/persons/:personId/attendances', attendancesHandler.create());
+router.get('/persons/:personId/attendances/:id', attendancesHandler.get());
+router.get('/persons/:personId/attendances', attendancesHandler.query());
+router.delete('/persons/:personId/attendances/:id', attendancesHandler.remove());
+router.put('/persons/:personId/attendances/:id', attendancesHandler.update());
 
 /*
 router.get('/persons', checkJwt, checkScopes, personsController.list);                      // Secured Restfull Endpoint
