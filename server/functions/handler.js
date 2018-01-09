@@ -3,7 +3,7 @@ const { HttpStatusError } = require('./errors');
 const { parse } = require('./parser');
 const { raw } = require('./transforms');
 
-class SubModelHandler {
+class ModelHandler {
   constructor(model, defaults = { limit: 50, offset: 0 }) {
     this.model = model;
     this.defaults = defaults;
@@ -27,6 +27,25 @@ class SubModelHandler {
       handle
     ];
   }
+
+  bulkCreate() {
+    const handle = (req, res, next) => {
+      this.model
+        .bulkCreate(req.body)
+        .then(respond)
+        .catch(next);
+
+      function respond(row) {
+        res.status(201);
+        res.send(res.transform(row));
+      }
+    };
+
+    return [
+      raw,
+      handle
+    ];
+  }   
 
   get() {
     const handle = (req, res, next) => {
@@ -156,4 +175,4 @@ class SubModelHandler {
   }
 }
 
-module.exports = SubModelHandler;
+module.exports = ModelHandler;

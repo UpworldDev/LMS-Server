@@ -23,7 +23,6 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.28.6",
     "sequelize-cli": "^3.2.0",
-    "sequelize-handlers": "^1.0.6",
     "serve-favicon": "~2.4.5",
     "supervisor": "^0.12.0"
   },
