@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const router = express.Router();
 const pg = require('pg');
@@ -27,6 +28,8 @@ const checkJwt = jwt({
 });
 
 const checkScopes = jwtAuthz(['read:messages']);
+
+router.all('*', cors());
 
 router.get('/public', function(req, res) {
   res.json({
